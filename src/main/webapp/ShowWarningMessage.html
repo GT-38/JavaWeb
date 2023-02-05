@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ShowWarningMessage</title>
+</head>
+<body>
+  <input type="checkbox" id="accReasonYN">
+  <p id="warningMessage">메세지</p>
+  <script>
+    const message = "3초 뒤에 터집니다.";
+    document.getElementById('accReasonYN').onclick = function () {
+      if(document.getElementById('accReasonYN').checked == true) {
+        document.getElementById('warningMessage').innerText = '경고 메시지 =';
+      }else{document.getElementById('warningMessage').innerText = '';}
+    }
+  </script>
+</body>
+</html>

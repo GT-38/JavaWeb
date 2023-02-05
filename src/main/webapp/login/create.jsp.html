@@ -1,0 +1,51 @@
+<script>
+  function setupValidation() {
+    $('#accountGroupInsert').validate({
+      rules : {
+        SVR_NAME : { required: true },
+        GROUP_NAME : {
+          required: true,
+          remote : {
+            type : "post",
+            url : '/kamos_admin/com/duplicationCheckAccountGroup',
+            data : {
+              SVR_ID : function() {
+                return 'SVR000000036';
+              }
+            }
+          }
+        }
+      },
+      messages: {
+        GROUP_NAME : {
+          remote: '중복된 계정 그룹입니다.',
+          required: ''
+        }
+      },
+      errorPlacement: function(error, element) {
+        error.css('font-weight', 'normal');
+        if (element.attr('name') == 'GROUP_NAME')
+          error.insertAfter(element);
+      },
+      onkeyup: false,
+      submitHandler: function(form) {
+        $('#loading').load('/kamos_admin/loading');
+        form.submit();
+      }
+    });
+  }
+  function back() {
+    $('#listForm').submit();
+  }
+  function engKorTest(){
+    const possiblePattern = /^[a-zA-Z0-9_.][a-zA-Z0-9_.-]{0,30}[a-zA-Z0-9_.$-]?$/
+    if(possiblePattern.test(document.getElementById("insertAccountGroup_GROUP_NAME").value) || !isNaN(document.getElementById('insertAccountGroup_GROUP_NAME').value)){
+      document.getElementById("inputProtection").innerHTML = "<font color='red'>영문이 하나 이상 들어간 영문+숫자 조합으로 그룹 명을 구성해야 합니다.</font>";
+      return false
+    }else{
+      document.getElementById("inputProtection").innerHTML = "";
+      return true
+    }
+  }
+
+</script>
